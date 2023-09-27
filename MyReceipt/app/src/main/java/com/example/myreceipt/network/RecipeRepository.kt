@@ -15,6 +15,7 @@ class RecipeRepository() {
     private val apiService: MyRecipeService = MyRecipeService
     private val _recipes = MutableLiveData<List<Row>>()
     val recipes: LiveData<List<Row>> get() = _recipes
+    var totalCount = 0
 
     // API에서 레시피 데이터를 가져오는 함수
     fun fetchRecipes(startIdx: Int, endIdx:Int,category:String) {
@@ -22,6 +23,7 @@ class RecipeRepository() {
             override fun onResponse(call: Call<Root>, response: Response<Root>) {
                 if (response.isSuccessful) {
                     val recipeList = response.body()?.COOKRCP01?.row
+                    totalCount = response.body()?.COOKRCP01?.total_count!!.toInt()
                     _recipes.value = recipeList
                 } else {
                     // API 호출이 실패한 경우에 대한 처리를 여기에 추가

@@ -63,22 +63,17 @@ class RecipeFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (isLastItemVisible(recyclerView)) {
                     // 스크롤 시 마지막 아이템이 보일 때 ViewModel의 onScrolledToBottom() 호출
-                    startIdx = endIdx +1
-                    endIdx += 100
-                    viewModel.onScrolledToBottom(startIdx,endIdx, when(contentType){1-> "밥" 2-> "반찬" 3-> "국" 4-> "후식" else -> "밥" })
+
+                    if(mAdapter.itemCount < viewModel.getTotalCount()) {
+                        startIdx = endIdx + 1
+                        endIdx += 100
+                        viewModel.onScrolledToBottom(startIdx, endIdx, when (contentType) {1 -> "밥" 2 -> "반찬" 3 -> "국" 4 -> "후식" else -> "밥" })
+                    }
                 }
             }
         })
 
-        viewModel.fetchRecipes(startIdx,endIdx,
-            when(contentType){
-                1-> "밥"
-                2-> "반찬"
-                3-> "국"
-                4-> "후식"
-                else -> "밥"
-            }
-        )
+        viewModel.fetchRecipes(startIdx,endIdx, when(contentType){1-> "밥" 2-> "반찬" 3-> "국" 4-> "후식" else -> "밥" })
 
 
         viewModel.getRecipes().observe(viewLifecycleOwner, Observer { data ->
@@ -87,7 +82,7 @@ class RecipeFragment : Fragment() {
                 currentData.addAll(data)
                 mAdapter.submitList(currentData)
             }
-            else if( data != null)
+            else
                 mAdapter.submitList(data)
         })
 

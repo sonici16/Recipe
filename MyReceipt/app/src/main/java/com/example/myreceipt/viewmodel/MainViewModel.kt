@@ -16,6 +16,9 @@ class MainViewModel() : ViewModel() {
     fun getRecipes(): LiveData<List<Row>> {
         return repository.recipes
     }
+    fun getTotalCount(): Int{
+        return repository.totalCount
+    }
 
     // ViewModel 내부에서 API 호출을 처리하는 함수 추가
     fun fetchRecipes(startIdx: Int, endIdx:Int,category:String) {

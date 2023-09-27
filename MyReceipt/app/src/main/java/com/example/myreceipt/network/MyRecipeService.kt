@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MyRecipeService {
-    private const val BASE_URL = "https://openapi.foodsafetykorea.go.kr/api/74ea102bd31144cfb660/COOKRCP01/json/"
+    private const val BASE_URL = "https://openapi.foodsafetykorea.go.kr/api/apikey!!!!/COOKRCP01/json/"
 
     val gson : Gson = GsonBuilder()
         .setLenient()
