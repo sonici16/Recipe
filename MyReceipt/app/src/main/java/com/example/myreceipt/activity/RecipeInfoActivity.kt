@@ -15,7 +15,7 @@ class RecipeInfoActivity : AppCompatActivity() {
     private lateinit var mAdapter: RecipeInfoAdapter
     var recipeItem: Row? = null
 
-    private val binding by lazy{
+    private val binding by lazy {
         ActivityRecipeInfoBinding.inflate(layoutInflater)
     }
 
@@ -37,11 +37,13 @@ class RecipeInfoActivity : AppCompatActivity() {
 
         binding.aTvRecipeinfoTitle.text = recipeItem!!.RCP_NM
 
-        binding.aTvEngRecipeinfo.text =  "열량: ${recipeItem!!.INFO_ENG}"
-        binding.aTvCarRecipeinfo.text =  "탄수화물: ${recipeItem!!.INFO_CAR}"
+        binding.aTvEngRecipeinfo.text = "열량: ${recipeItem!!.INFO_ENG}"
+        binding.aTvCarRecipeinfo.text = "탄수화물: ${recipeItem!!.INFO_CAR}"
         binding.aTvFatRecipeinfo.text = "지방: ${recipeItem!!.INFO_FAT}"
         binding.aTvNaRecipeinfo.text = "나트륨: ${recipeItem!!.INFO_NA}"
         binding.aTvProRecipeinfo.text = "단백질: ${recipeItem!!.INFO_PRO}"
+
+        binding.dotsIndicator.attachTo(binding.aVpRecipeinfo)
 
     }
 }

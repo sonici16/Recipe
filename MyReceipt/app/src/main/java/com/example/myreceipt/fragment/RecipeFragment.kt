@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.myreceipt.R
-import com.example.myreceipt.adpter.PagerFragmentStateAdapter
 import com.example.myreceipt.adpter.RecipeAdapter
 import com.example.myreceipt.databinding.FragmentRecipeBinding
 import com.example.myreceipt.decoration.ItemDecoration
-import com.example.myreceipt.model.Row
+import com.example.myreceipt.model.EnumContainer
+import com.example.myreceipt.ui.SimpleProgressDialog
 import com.example.myreceipt.viewmodel.MainViewModel
 
 class RecipeFragment : Fragment() {
@@ -24,15 +22,15 @@ class RecipeFragment : Fragment() {
     var startIdx = 1
     var endIdx = 100
     private lateinit var mAdapter: RecipeAdapter
+    private var mProgress: SimpleProgressDialog? = null
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentRecipeBinding.inflate(inflater, container, false)
 
         contentType = arguments?.getInt("MENUTYPE", 0)!!
+
+        var selectedContentType = EnumContainer.ContentType.fromInt(contentType)
         mAdapter = RecipeAdapter(requireContext())
 
         binding.fRvRecipe.apply {
@@ -63,20 +61,19 @@ class RecipeFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (isLastItemVisible(recyclerView)) {
                     // 스크롤 시 마지막 아이템이 보일 때 ViewModel의 onScrolledToBottom() 호출
-
-                    if(mAdapter.itemCount < viewModel.getTotalCount()) {
+                    if(mAdapter.itemCount < viewModel.totalCount) {
                         startIdx = endIdx + 1
                         endIdx += 100
-                        viewModel.onScrolledToBottom(startIdx, endIdx, when (contentType) {1 -> "밥" 2 -> "반찬" 3 -> "국" 4 -> "후식" else -> "밥" })
+                        viewModel.onScrolledToBottom(startIdx, endIdx, selectedContentType.value)
                     }
                 }
             }
         })
 
-        viewModel.fetchRecipes(startIdx,endIdx, when(contentType){1-> "밥" 2-> "반찬" 3-> "국" 4-> "후식" else -> "밥" })
+        viewModel.fetchRecipes(startIdx, endIdx, selectedContentType.value)
 
 
-        viewModel.getRecipes().observe(viewLifecycleOwner, Observer { data ->
+        viewModel.recipes.observe(viewLifecycleOwner, Observer { data ->
             if(mAdapter.itemCount != 0 && data != null) {
                 val currentData = mAdapter.currentList.toMutableList()
                 currentData.addAll(data)
@@ -85,6 +82,25 @@ class RecipeFragment : Fragment() {
             else
                 mAdapter.submitList(data)
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                // 로딩 중인 경우 처리 (예: 프로그레스 바 표시)
+                mProgress ?: run {
+                    mProgress = context?.let { SimpleProgressDialog(it) }
+                }
+
+                if (mProgress?.isShowing == false) {
+                    mProgress?.show()
+                }
+            } else {
+                // 로딩이 완료된 경우 처리 (예: 프로그레스 바 숨김)
+                mProgress?.takeIf { mProgress!!.isShowing }?.let {
+                    mProgress?.dismiss()
+                    mProgress = null
+                }
+            }
+        }
 
         return binding.root
     }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#f5f5dc"
+    android:orientation="vertical"
     tools:context=".activity.RecipeInfoActivity">
 
     <FrameLayout
@@ -26,64 +25,82 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="bottom"
-            android:background="#969696"/>
+            android:background="#969696" />
 
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/a_vp_recipeinfo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="350dp"
-        android:orientation="vertical">
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/a_vp_recipeinfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/a_tv_eng_recipeinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="열량: "
-        android:textColor="#000000"
-        android:layout_marginBottom="8dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="150dp"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/a_tv_car_recipeinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="탄수화물: "
-        android:textColor="#000000"
-        android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/a_tv_eng_recipeinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="열량: "
+                android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/a_tv_pro_recipeinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="단백질: "
-        android:textColor="#000000"
-        android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/a_tv_car_recipeinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="탄수화물: "
+                android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/a_tv_fat_recipeinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="지방: "
-        android:textColor="#000000"
-        android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/a_tv_pro_recipeinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="단백질: "
+                android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/a_tv_na_recipeinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="나트륨: "
-        android:textColor="#000000"
-        android:layout_marginBottom="8dp"/>
-</LinearLayout>
+            <TextView
+                android:id="@+id/a_tv_fat_recipeinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="지방: "
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/a_tv_na_recipeinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="나트륨: "
+                android:textColor="#000000" />
+        </LinearLayout>
+
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_gravity="center|bottom"
+            android:layout_centerHorizontal="true"
+            app:dotsColor="@android:color/black"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="16dp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="2.5"
+            app:selectedDotColor="@android:color/darker_gray"
+            app:progressMode="false"/>
     </FrameLayout>
 </LinearLayout>
