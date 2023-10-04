@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     private val tabTextList = arrayListOf("밥", "반찬", "국/찌개", "후식")
 
-    val firstFragment = RecipeFragment()
-    val secondFragment = RecipeFragment()
-    val thirdragment = RecipeFragment()
-    val fourthFragment = RecipeFragment()
+    private val firstFragment = RecipeFragment()
+    private val secondFragment = RecipeFragment()
+    private val thirdragment = RecipeFragment()
+    private val fourthFragment = RecipeFragment()
 
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
